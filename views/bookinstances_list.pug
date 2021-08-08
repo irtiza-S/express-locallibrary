@@ -1,0 +1,23 @@
+extends Layout
+
+block content
+    h1=title
+
+    ul 
+        each val in bookinstance_list
+            li
+                a(href=val.url) #{val.book.title} : #{val.imprint} - 
+                if val.status == 'Available'
+                    span.text-success #{val.status}
+                else if val.status == 'Maintenance'
+                    span.text-danger #{val.status}
+                else 
+                    span.text-warning #{val.status}
+                if val.status != 'Available'
+                    span (Due: #{val.due_back_formatted})
+        else 
+            li there are no book copies in the library.
+
+
+//- 1. Loop through the book copies in the bookinstance_list. For each copy we want to display its status and its available status, and its expected return date.
+//- 2. We make use of dot notation to assign classes to tags. E.g. span.text-success is the same as <span class='text-success'> and span(class='text-success')
